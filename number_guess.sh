@@ -24,6 +24,12 @@ else
 fi
 echo "Guess the secret number between 1 and 1000:"
 read GUESS
+GUESSNO=1
+CATCHER(){
+  echo $1
+  read GUESS
+  GAME
+}
 GAME(){ 
   if [[ $GUESS =~ ^[0-9]+$ ]]
   then
