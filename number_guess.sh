@@ -55,3 +55,13 @@ GAME(){
     done
   else
 GAME
+
+
+INSERT_TO_DATABASE2=$($PSQL "UPDATE userbase SET games_played = $GAMES_PLAYED WHERE username = '$USERNAME'")
+if [[ $GUESSNO -le $BEST_GAME ]];
+then
+  INSERT_TO_DATABASE3=$($PSQL "UPDATE userbase SET best_game = $GUESSNO WHERE username = '$USERNAME'")
+fi
+
+echo "You guessed it in "$GUESSNO" tries. The secret number was "$R". Nice job!"
+#echo "Good job $R was it with $GUESSNO guesses "
