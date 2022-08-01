@@ -60,7 +60,6 @@ ALTER TABLE public.userbase OWNER TO freecodecamp;
 -- Data for Name: userbase; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.userbase VALUES ('test', 10, 15);
 
 
 --

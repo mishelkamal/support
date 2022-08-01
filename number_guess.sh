@@ -12,7 +12,7 @@ if [[ -z $USERNAME ]]
 then 
   USERNAME=$USER_NAME
   echo "Welcome, $USERNAME! It looks like this is your first time here."
-  INSERT_TO_DATABASE=$($PSQL "INSERT INTO userbase (username,games_played,best_game) VALUES ('$USERNAME',0,1)")
+  INSERT_TO_DATABASE=$($PSQL "INSERT INTO userbase (username,games_played,best_game) VALUES ('$USERNAME',0,0)")
   GAMES_PLAYED=$($PSQL "SELECT games_played FROM userbase WHERE username = '$USER_NAME'")
   BEST_GAME=$($PSQL "SELECT best_game FROM userbase WHERE username = '$USER_NAME'")
 else
@@ -72,9 +72,15 @@ GAMES_PLAYED=GAMES_PLAYED+1
 
 
 INSERT_TO_DATABASE2=$($PSQL "UPDATE userbase SET games_played = $GAMES_PLAYED WHERE username = '$USERNAME'")
-if [[ $GUESSNO -le $BEST_GAME ]];
+
+if [[ $GUESSNO -le $BEST_GAME ]]
 then
   INSERT_TO_DATABASE3=$($PSQL "UPDATE userbase SET best_game = $GUESSNO WHERE username = '$USERNAME'")
+else
+  if [[ $BEST_GAME -eq 0 ]]
+  then
+    INSERT_TO_DATABASE4=$($PSQL "UPDATE userbase SET best_game = $GUESSNO WHERE username = '$USERNAME'")
+  fi
 fi
 
 echo "You guessed it in "$GUESSNO" tries. The secret number was "$R". Nice job!"
